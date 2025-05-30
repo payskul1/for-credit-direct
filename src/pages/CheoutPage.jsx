@@ -123,9 +123,8 @@ export default function CheckoutPage() {
             type="email"
             className="w-full border border-gray-300 rounded px-3 py-2"
             value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            readOnly
           />
         </div>
         <div className="mb-4">
