@@ -30,6 +30,7 @@ function signTransaction(transaction) {
   const privateKey = '4612fc72101514678745ac11720bd833fdd5e575cc79f3d57e2c48b92afe4b87';
   const sm = transaction.sessionId + transaction.customerEmail + transaction.totalAmount;
   const key = CryptoJS.enc.Utf8.parse(privateKey);
+  // First
   const messageData = CryptoJS.enc.Utf8.parse(sm);
   const signature = CryptoJS.enc.Hex.stringify(CryptoJS.HmacSHA256(messageData, key));
   return signature;
@@ -65,7 +66,10 @@ export default function CheckoutPage() {
       customerEmail: email,
       customerPhone: phone,
       sessionId,
-      metaData: '',
+      metaData:  JSON.stringify({
+        email: email,
+        // source: 'check-out',
+      }),
       products: sampleProducts,
     };
 
