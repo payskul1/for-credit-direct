@@ -99,7 +99,7 @@ export default function CheckoutPage() {
   return (
     <div className="max-w-xl mx-auto p-4 bg-gray-100 min-h-screen">
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold">Credit Direct Checkout</h1>
+        <h1 className="text-2xl font-bold">Payskul Checkout</h1>
        
         <p className="text-sm text-gray-500">Secure Buy Now, Pay Later Solution</p>
         
