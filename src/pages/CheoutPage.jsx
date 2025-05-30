@@ -71,10 +71,9 @@ export default function CheckoutPage() {
       customerEmail: email,
       customerPhone: phone,
       sessionId,
-      metaData: {
-        email: email,
+      metaData:  email,
         // source: 'check-out',
-      },
+    
       products: sampleProducts,
     };
 
