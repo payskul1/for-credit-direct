@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CheckoutPage from "../../payskul/src/pages/CheoutPage";
 import RootLayout from "./pages/layout";
 import Welcome from "./pages/Welcome";
+import CheckoutPage from "./pages/CheoutPage";
 
 
 function App() {
