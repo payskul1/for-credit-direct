@@ -12,7 +12,7 @@ const sampleProducts = [
   {
     name: 'Sample Product 2',
     price: 25000,
-    quantity: 1, 
+    quantity: 1,
     description: 'Another sample product',
   },
 ];
@@ -49,12 +49,17 @@ export default function CheckoutPage() {
     if (amt && amt >= 1000) {
       setAmount(amt);
     }
+
+    const emailParam = searchParams.get('email');
+    if (emailParam) {
+      setEmail(emailParam);
+    }
   }, [searchParams]);
 
   const openCheckout = () => {
     if (!amount || amount < 1000) return setMessage({ type: 'error', text: 'Invalid amount (min ₦1,000)' });
     if (!email.includes('@')) return setMessage({ type: 'error', text: 'Invalid email' });
-    if (!phone.trim) return setMessage({ type: 'error', text: 'Invalid phone number' });
+    if (!phone.trim()) return setMessage({ type: 'error', text: 'Invalid phone number' });
 
     setLoading(true);
     setMessage({ type: '', text: '' });
@@ -66,7 +71,7 @@ export default function CheckoutPage() {
       customerEmail: email,
       customerPhone: phone,
       sessionId,
-      metaData:  JSON.stringify({
+      metaData: JSON.stringify({
         email: email,
         // source: 'check-out',
       }),
@@ -100,9 +105,9 @@ export default function CheckoutPage() {
     <div className="max-w-xl mx-auto p-4 bg-gray-100 min-h-screen">
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold">Payskul Checkout</h1>
-       
+
         <p className="text-sm text-gray-500">Secure Buy Now, Pay Later Solution</p>
-        
+
       </div>
 
       <div className="bg-white p-5 rounded-xl shadow mb-4">
@@ -150,11 +155,10 @@ export default function CheckoutPage() {
 
       {message.text && (
         <div
-          className={`mt-4 p-3 rounded text-sm font-medium ${
-            message.type === 'success'
+          className={`mt-4 p-3 rounded text-sm font-medium ${message.type === 'success'
               ? 'bg-green-100 text-green-700 border border-green-300'
               : 'bg-red-100 text-red-700 border border-red-300'
-          }`}
+            }`}
         >
           {message.text}
         </div>
