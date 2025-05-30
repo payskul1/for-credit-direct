@@ -12,7 +12,7 @@ const Welcome = () => {
           We're excited to have you here. Enjoy a seamless, secure Buy Now, Pay Later experience.
         </p>
         <p className="text-md sm:text-lg">
-          Want to learn more? Visit our partner platform — <br />
+          Want to learn more? Visit our platform — <br />
           <a 
             href="https://payskul.com" 
             target="_blank" 
