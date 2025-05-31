@@ -55,7 +55,7 @@ export default function CheckoutPage() {
     if (emailParam) {
       setEmail(emailParam);
     }
-    const productsParam = searchParams.get('products');
+   const productsParam = searchParams.get('products');
     if (productsParam) {
       try {
         // Decode and parse products JSON
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
         // Validate products array and required fields
         if (Array.isArray(parsedProducts) && parsedProducts.length > 0) {
           const validProducts = parsedProducts.filter(product => 
-            product.name && product.id && product.amount && product.amount > 0
+            product.productAmount && product.productAmount > 0 && product.productId && product.productName
           );
           if (validProducts.length > 0) {
             setProducts(validProducts);
