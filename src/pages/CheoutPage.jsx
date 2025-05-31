@@ -88,17 +88,17 @@ export default function CheckoutPage() {
     } else if (productAmount && productId && productName) {
       // Handle individual product parameters
       const amount = parseInt(productAmount);
-      if (amount && amount > 0) {
+      if (amount && amount > 0 && amount === amt) {
         setProducts([{
           productAmount: amount,
           productId: productId,
           productName: productName
         }]);
+      } else if (amount !== amt) {
+        setMessage({ type: 'error', text: `Amount mismatch: main amount (₦${amt.toLocaleString()}) must equal product amount (₦${amount.toLocaleString()})` });
       } else {
         setMessage({ type: 'error', text: 'Invalid product amount' });
       }
-    } else {
-      setMessage({ type: 'error', text: 'No products specified' });
     }
 
 
