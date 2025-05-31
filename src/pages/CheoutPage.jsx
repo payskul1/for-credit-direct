@@ -2,20 +2,20 @@ import { useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
 import { useSearchParams } from 'react-router-dom';
 
-const sampleProducts = [
-  {
-    name: 'Sample Product 1',
-    price: 25000,
-    quantity: 1,
-    description: 'Sample product description',
-  },
-  {
-    name: 'Sample Product 2',
-    price: 25000,
-    quantity: 1,
-    description: 'Another sample product',
-  },
-];
+// const sampleProducts = [
+//   {
+//     name: 'Sample Product 1',
+//     price: 25000,
+//     quantity: 1,
+//     description: 'Sample product description',
+//   },
+//   {
+//     name: 'Sample Product 2',
+//     price: 25000,
+//     quantity: 1,
+//     description: 'Another sample product',
+//   },
+// ];
 
 function generateUniqueSessionId(length) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -41,6 +41,7 @@ export default function CheckoutPage() {
   const [amount, setAmount] = useState(0);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
 
@@ -54,6 +55,35 @@ export default function CheckoutPage() {
     if (emailParam) {
       setEmail(emailParam);
     }
+    const productsParam = searchParams.get('products');
+    if (productsParam) {
+      try {
+        // Decode and parse products JSON
+        const decodedProducts = decodeURIComponent(productsParam);
+        const parsedProducts = JSON.parse(decodedProducts);
+        
+        // Validate products array and required fields
+        if (Array.isArray(parsedProducts) && parsedProducts.length > 0) {
+          const validProducts = parsedProducts.filter(product => 
+            product.name && product.id && product.amount && product.amount > 0
+          );
+          if (validProducts.length > 0) {
+            setProducts(validProducts);
+          } else {
+            setMessage({ type: 'error', text: 'Invalid products data - missing required fields' });
+          }
+        } else {
+          setMessage({ type: 'error', text: 'Invalid products data' });
+        }
+      } catch (error) {
+        console.error('Error parsing products:', error);
+        setMessage({ type: 'error', text: 'Failed to parse products data' });
+      }
+    } else {
+      setMessage({ type: 'error', text: 'No products specified' });
+    }
+
+
   }, [searchParams]);
 
   const openCheckout = () => {
@@ -73,8 +103,7 @@ export default function CheckoutPage() {
       sessionId,
       metaData: email,
         // source: 'check-out',
-    
-      products: sampleProducts,
+      products: products,
     };
 
     const config = {
