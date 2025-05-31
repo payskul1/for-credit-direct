@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from "./pages/layout";
 import Welcome from "./pages/Welcome";
 import CheckoutPage from "./pages/CheoutPage";
+import CheckJson from "./pages/CheckJson";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       element: <RootLayout />,
       children: [
         { path: "/check-out", element: <CheckoutPage />},
+        { path: "/check-json", element: <CheckJson /> },
 
         { index: true, element: <Welcome /> },
         { path: "*", element: <h1>404</h1>}
