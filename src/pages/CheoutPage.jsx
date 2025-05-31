@@ -73,8 +73,14 @@ export default function CheckoutPage() {
           const validProducts = parsedProducts.filter(product => 
             product.productAmount && product.productId && product.productName && product.productAmount > 0
           );
+          
+          // Check if total product amounts match the main amount
+          const totalProductAmount = validProducts.reduce((sum, product) => sum + product.productAmount, 0);
+          
           if (validProducts.length > 0) {
             setProducts(validProducts);
+            // Update the main amount to match total product amounts
+            setAmount(totalProductAmount);
           } else {
             setMessage({ type: 'error', text: 'Invalid products data - missing required fields' });
           }
@@ -88,17 +94,19 @@ export default function CheckoutPage() {
     } else if (productAmount && productId && productName) {
       // Handle individual product parameters
       const amount = parseInt(productAmount);
-      if (amount && amount > 0 && amount === amt) {
+      if (amount && amount > 0) {
         setProducts([{
           productAmount: amount,
           productId: productId,
           productName: productName
         }]);
-      } else if (amount !== amt) {
-        setMessage({ type: 'error', text: `Amount mismatch: main amount (₦${amt.toLocaleString()}) must equal product amount (₦${amount.toLocaleString()})` });
+        // Update the main amount to match product amount
+        setAmount(amount);
       } else {
         setMessage({ type: 'error', text: 'Invalid product amount' });
       }
+    } else {
+      setMessage({ type: 'error', text: 'No products specified' });
     }
 
 
