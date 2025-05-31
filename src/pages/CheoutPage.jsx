@@ -50,10 +50,10 @@ export default function CheckoutPage() {
       setAmount(amt);
     }
 
-    // const emailParam = searchParams.get('email');
-    // if (emailParam) {
-    //   setEmail(emailParam);
-    // }
+    const emailParam = searchParams.get('email');
+    if (emailParam) {
+      setEmail(emailParam);
+    }
   }, [searchParams]);
 
   const openCheckout = () => {
@@ -71,7 +71,9 @@ export default function CheckoutPage() {
       customerEmail: email,
       customerPhone: phone,
       sessionId,
-      metaData:  email,
+      metaData: {
+        "email": email
+      },
         // source: 'check-out',
     
       products: sampleProducts,
