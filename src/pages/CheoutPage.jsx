@@ -4,14 +4,16 @@ import { useSearchParams } from 'react-router-dom';
 
 // const sampleProducts = [
 //   {
-//     name: 'Sample Product 1',
-//     price: 25000,
+//     productAmount: 25000,
+//     productId: 'sample1',
+//     productName: 'Sample Product 1',
 //     quantity: 1,
 //     description: 'Sample product description',
 //   },
 //   {
-//     name: 'Sample Product 2',
-//     price: 25000,
+//     productAmount: 25000,
+//     productId: 'sample2',
+//     productName: 'Sample Product 2',
 //     quantity: 1,
 //     description: 'Another sample product',
 //   },
@@ -55,7 +57,11 @@ export default function CheckoutPage() {
     if (emailParam) {
       setEmail(emailParam);
     }
-   const productsParam = searchParams.get('products');
+    const productsParam = searchParams.get('products');
+    const productAmount = searchParams.get('productAmount');
+    const productId = searchParams.get('productId');
+    const productName = searchParams.get('productName');
+
     if (productsParam) {
       try {
         // Decode and parse products JSON
@@ -65,7 +71,7 @@ export default function CheckoutPage() {
         // Validate products array and required fields
         if (Array.isArray(parsedProducts) && parsedProducts.length > 0) {
           const validProducts = parsedProducts.filter(product => 
-            product.productAmount && product.productAmount > 0 && product.productId && product.productName
+            product.productAmount && product.productId && product.productName && product.productAmount > 0
           );
           if (validProducts.length > 0) {
             setProducts(validProducts);
@@ -78,6 +84,18 @@ export default function CheckoutPage() {
       } catch (error) {
         console.error('Error parsing products:', error);
         setMessage({ type: 'error', text: 'Failed to parse products data' });
+      }
+    } else if (productAmount && productId && productName) {
+      // Handle individual product parameters
+      const amount = parseInt(productAmount);
+      if (amount && amount > 0) {
+        setProducts([{
+          productAmount: amount,
+          productId: productId,
+          productName: productName
+        }]);
+      } else {
+        setMessage({ type: 'error', text: 'Invalid product amount' });
       }
     } else {
       setMessage({ type: 'error', text: 'No products specified' });
