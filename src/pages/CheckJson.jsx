@@ -29,7 +29,7 @@ function generateUniqueSessionId(length) {
 }
 
 function signTransaction(transaction) {
-  const privateKey = '4612fc72101514678745ac11720bd833fdd5e575cc79f3d57e2c48b92afe4b87';
+  const privateKey = 'd308be43759324959842632ca577ca67f8edb7bb683f81d47151c94b3d51b6bd';
   const sm = transaction.sessionId + transaction.customerEmail + transaction.totalAmount;
   const key = CryptoJS.enc.Utf8.parse(privateKey);
   // First
@@ -113,10 +113,10 @@ export default function CheckJson() {
     };
 
     const config = {
-      publicKey: '028d174dc1d1485a82fc75a2588f03f9',
+      publicKey: 'c0731e391330477784dba9ecb87fc7b0',
       signature: signTransaction(transaction),
       transaction,
-      isLive: false,
+      isLive: true,  
       onSuccess: () => setMessage({ type: 'success', text: 'Payment completed successfully!' }),
       onClose: () => setLoading(false),
       onError: (error) => setMessage({ type: 'error', text: `Payment failed: ${error.message || 'Unknown error'}` }),
