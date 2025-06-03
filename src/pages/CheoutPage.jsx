@@ -29,7 +29,7 @@ function generateUniqueSessionId(length) {
 }
 
 function signTransaction(transaction) {
-  const privateKey = '4612fc72101514678745ac11720bd833fdd5e575cc79f3d57e2c48b92afe4b87';
+  const privateKey = 'b83d5b956375a84c9b057ccd932c7d936fadd264313983bdbc693ee76746209e';
   const sm = transaction.sessionId + transaction.customerEmail + transaction.totalAmount;
   const key = CryptoJS.enc.Utf8.parse(privateKey);
   // First
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
     };
 
     const config = {
-      publicKey: '028d174dc1d1485a82fc75a2588f03f9',
+      publicKey: '3760cabe4d604f62a9c03277f1e818f9',
       signature: signTransaction(transaction),
       transaction,
       isLive: false,
