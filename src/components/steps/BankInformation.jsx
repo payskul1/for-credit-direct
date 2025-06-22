@@ -1,6 +1,7 @@
 import { CheckCircle, CreditCard } from "lucide-react";
 import FormInput from "../../core/FormInput";
 import MonoConnector from "../MonoConnector";
+import ErrorBoundary from "../ErrorBoundary";
 
 const BankAccount = ({ formData, handleInputChange, bankConnected, handleSuccess, handleError, handleClose }) => {
   const pubKey = "test_pk_vulwcz9yw9kqdtvua5q4";
@@ -23,6 +24,7 @@ const BankAccount = ({ formData, handleInputChange, bankConnected, handleSuccess
       </h2>
 
       {!bankConnected ? (
+        <ErrorBoundary>
         <MonoConnector
           customer={customer}
           publicKey={pubKey}
@@ -32,6 +34,7 @@ const BankAccount = ({ formData, handleInputChange, bankConnected, handleSuccess
           onClose={handleClose}
           buttonText="Link Bank Account"
         />
+        </ErrorBoundary>
       ) : (
         <div className="bg-green-900/30 rounded-2xl p-6 mb-6 border border-green-500/30">
           <div className="flex items-center mb-4">

@@ -12,6 +12,7 @@ const MonoConnector = ( { customer,
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState(null);
   const [connect, setConnect] = useState(null);
+    const [isMonoReady, setIsMonoReady] = useState(false);
     const API_BASE_URL = "https://api.withmono.com"; 
     const secret = 'test_sk_b70y8f5d7cc04nj27fj1';
 
@@ -90,6 +91,44 @@ const MonoConnector = ( { customer,
       setError('Failed to initialize Mono Connect');
     }
   }, [customer, publicKey, onSuccess, onError, onClose]);
+
+  useEffect(() => {
+      const loadMonoScript = () => {
+        return new Promise((resolve, reject) => {
+          if (document.querySelector('script[src*="connect.withmono.com"]')) {
+            resolve();
+            return;
+          }
+  
+          const script = document.createElement('script');
+          script.src = 'https://connect.withmono.com/connect.js';
+          script.type = 'application/javascript';
+          // script.onload = resolve;
+          script.onerror = reject;
+          script.onload = () => {
+            window.MonoConnect.setup({
+              onLoad: () => {
+                setIsMonoReady(true);
+              },
+            });
+          };
+          document.head.appendChild(script);
+        });
+      };
+  
+      loadMonoScript()
+        .then(() => {
+          console.log('Mono Connect script loaded successfully');
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error('Failed to load Mono Connect script:', err);
+          setError('Failed to load Mono Connect');
+          setIsLoading(false);
+        });
+  
+    }, []);
+  
 
   // Initialize when script is loaded
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Upload, User, GraduationCap, DollarSign, Calendar, Phone, Mail, MapPin, FileText, CreditCard, Building, Shield, CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Check, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Upload, User, GraduationCap, DollarSign, FileText, CreditCard, Shield, CheckCircle, Check, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import MonoConnector from '../MonoConnector';
 
 // Step Components
