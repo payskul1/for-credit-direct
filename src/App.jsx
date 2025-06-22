@@ -4,6 +4,8 @@ import RootLayout from "./pages/layout";
 import Welcome from "./pages/Welcome";
 import CheckoutPage from "./pages/CheoutPage";
 import CheckJson from "./pages/CheckJson";
+import StudentLoanForm from "./pages/studentLoanForm";
+import StudentLoan from "./components/steps/StudentLoan";
 
 
 function App() {
@@ -25,6 +27,9 @@ function App() {
       children: [
         { path: "/check-out", element: <CheckoutPage />},
         { path: "/check-json", element: <CheckJson /> },
+        { path: "/loan", element: <StudentLoanForm /> },
+        { path: "/school", element: <StudentLoan /> },
+
 
         { index: true, element: <Welcome /> },
         { path: "*", element: <h1>404</h1>}
