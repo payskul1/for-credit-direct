@@ -15,6 +15,7 @@ const MonoConnector = ({ customer,
   const [isMonoReady, setIsMonoReady] = useState(false);
   const API_BASE_URL = "https://api.withmono.com";
   const secret = 'test_sk_b70y8f5d7cc04nj27fj1';
+  const name = customer.name;
 
 
   
@@ -25,26 +26,27 @@ const MonoConnector = ({ customer,
       return null;
     }
 
+    const payload = {
+    customer: {
+      name: customer.name.trim(),
+      email: customer.email.trim()
+    },
+    meta: { 
+      ref: `${customer.email.replace('@', '_')}_${Date.now()}`
+    },
+    scope: "auth",
+    redirect_url: window.location.origin
+  };
+
     try {
       const response = await fetch(`${API_BASE_URL}/v2/accounts/initiate`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          'content-type': 'application/json',
+          'accept': 'application/json',
           'mono-sec-key': secret, // Use your SECRET key here
         },
-        body: JSON.stringify({
-          customer: {
-            name: customer.name,
-            email: customer.email,
-            // identity: {
-            //   type: "bvn",
-            //   number: bvn,
-            // }
-          },
-          scope: "auth", // or "transactions" based on your needs
-          redirect_url: window.location.origin,
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -120,8 +122,9 @@ const MonoConnector = ({ customer,
   useEffect(() => {
     const loadMonoScript = () => {
       return new Promise((resolve, reject) => {
-        if (document.querySelector('script[src*="connect.withmono.com"]')) {
-          resolve();
+        // if (document.querySelector('script[src*="connect.withmono.com"]')) {
+          if(window.Connect) {
+          resolve(window.Connect);
           return;
         }
 
