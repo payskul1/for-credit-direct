@@ -36,6 +36,17 @@ const MonoConnector = ({ customer,
     },
     scope: "auth",
     redirect_url: window.location.origin
+    //  data: {
+    //     customer: {
+    //       name: customer.name.trim(),
+    //       email: customer.email.trim()
+    //     },
+    //     meta: { 
+    //        ref: `${customer.email.replace('@', '_')}_${Date.now()}`
+    //      },
+    //     scope: "auth",
+    //     redirect_url: "https://mono.co",
+    // },
   };
 
     try {
