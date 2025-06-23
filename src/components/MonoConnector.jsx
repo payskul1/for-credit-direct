@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { data } from 'react-router-dom';
 
 const MonoConnector = ({ customer,
   publicKey,
@@ -15,10 +16,7 @@ const MonoConnector = ({ customer,
   const [isMonoReady, setIsMonoReady] = useState(false);
   const API_BASE_URL = "https://api.withmono.com";
   const secret = 'test_sk_b70y8f5d7cc04nj27fj1';
-  const name = customer.name;
-
-
-  
+  // const name = customer.name;
   // First, initiate account linking to get the auth token
   const initiateAccountLinking = useCallback(async () => {
     if (!customer || !secret) {
@@ -27,26 +25,17 @@ const MonoConnector = ({ customer,
     }
 
     const payload = {
-    customer: {
-      name: customer.name.trim(),
-      email: customer.email.trim()
-    },
-    meta: { 
-      ref: `${customer.email.replace('@', '_')}_${Date.now()}`
-    },
-    scope: "auth",
-    redirect_url: window.location.origin
-    //  data: {
-    //     customer: {
-    //       name: customer.name.trim(),
-    //       email: customer.email.trim()
-    //     },
-    //     meta: { 
-    //        ref: `${customer.email.replace('@', '_')}_${Date.now()}`
-    //      },
-    //     scope: "auth",
-    //     redirect_url: "https://mono.co",
-    // },
+      // data: {
+        customer: {
+        name: customer.name.trim(),
+        email: customer.email.trim()
+      },
+      meta: { 
+        ref: `${customer.email.replace('@', '_')}_${Date.now()}`
+      },
+      scope: "auth",
+      redirect_url: window.location.origin,
+      // }
   };
 
     try {
@@ -73,7 +62,7 @@ const MonoConnector = ({ customer,
       setError(error.message || 'Failed to initiate account linking');
       throw error;
     }
-  }, [customer, secret, bvn]);
+  }, [customer, secret]);
 
   // Then initialize Mono Connect with the auth token
   const initializeConnect = useCallback(async () => {

@@ -883,6 +883,9 @@ const StudentLoan = () => {
     };
 
     const renderCurrentStep = () => {
+        // PRINT ADDED
+        console.log('Component:', MonoConnector);
+        console.log('Type of component:', typeof MonoConnector);
         switch (currentStep) {
             case 1:
                 return (
@@ -941,6 +944,7 @@ const StudentLoan = () => {
                         imagePreview={imagePreview}
                         handleImageUpload={handleImageUpload}
                     />
+                    // <p>hr</p>
                 );
         }
     };
