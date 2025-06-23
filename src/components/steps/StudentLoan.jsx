@@ -847,14 +847,14 @@ const StudentLoan = () => {
     const handleSuccess = (data) => {
         console.log('Bank account connected successfully:', data);
         setBankConnected(true);
-        setFormData(prev => ({
-            ...prev,
-            monoAccountId: data.accountId,
-            accountNumber: data.accountNumber,
-            accountName: data.accountName,
-            bankName: data.bankName,
-            bankCode: data.bankCode
-        }));
+        // setFormData(prev => ({
+        //     ...prev,
+        //     monoAccountId: data.accountId,
+        //     accountNumber: data.accountNumber,
+        //     accountName: data.accountName,
+        //     bankName: data.bankName,
+        //     bankCode: data.bankCode
+        // }));
     };
 
     const handleError = (error) => {
