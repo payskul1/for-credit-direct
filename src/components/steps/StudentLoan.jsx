@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Upload, User, GraduationCap, DollarSign, Calendar, Phone, Mail, MapPin, FileText, CreditCard, Building, Shield, CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Check, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Upload, User, GraduationCap, DollarSign, FileText, CreditCard, Shield, CheckCircle, Check, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import MonoConnector from '../MonoConnector';
 
 // Step Components
@@ -847,14 +847,14 @@ const StudentLoan = () => {
     const handleSuccess = (data) => {
         console.log('Bank account connected successfully:', data);
         setBankConnected(true);
-        setFormData(prev => ({
-            ...prev,
-            monoAccountId: data.accountId,
-            accountNumber: data.accountNumber,
-            accountName: data.accountName,
-            bankName: data.bankName,
-            bankCode: data.bankCode
-        }));
+        // setFormData(prev => ({
+        //     ...prev,
+        //     monoAccountId: data.accountId,
+        //     accountNumber: data.accountNumber,
+        //     accountName: data.accountName,
+        //     bankName: data.bankName,
+        //     bankCode: data.bankCode
+        // }));
     };
 
     const handleError = (error) => {
@@ -883,6 +883,9 @@ const StudentLoan = () => {
     };
 
     const renderCurrentStep = () => {
+        // PRINT ADDED
+        console.log('Component:', MonoConnector);
+        console.log('Type of component:', typeof MonoConnector);
         switch (currentStep) {
             case 1:
                 return (
@@ -941,6 +944,7 @@ const StudentLoan = () => {
                         imagePreview={imagePreview}
                         handleImageUpload={handleImageUpload}
                     />
+                    // <p>hr</p>
                 );
         }
     };

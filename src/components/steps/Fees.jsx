@@ -74,7 +74,6 @@ const Fees = ({ formData, handleInputChange, calculateMonthlyPayment }) => {
             handleInputChange(e);
             calculateMonthlyPayment();
           }}
-          onBlur={calculateMonthlyPayment()}
           options={termOptions}
           required
         />

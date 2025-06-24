@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Upload, User, GraduationCap, DollarSign, Calendar, Phone, Mail, MapPin, FileText, CreditCard, Building, Shield, CheckCircle, AlertCircle, ArrowRight, ArrowLeft, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { User, GraduationCap, DollarSign, FileText, CreditCard, CheckCircle, } from 'lucide-react';
 import PersonalInformation from '../components/steps/PersonalInformation';
 import AcademicInformation from '../components/steps/AcademicInformations';
 import Fees from '../components/steps/Fees';
@@ -11,6 +11,7 @@ import NavigationButtons from '../components/NavigationButtons';
 
 const StudentLoanForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
   const [formData, setFormData] = useState({
     // Personal Information
     firstName: '',
@@ -66,6 +67,7 @@ const StudentLoanForm = () => {
   const [bankConnected, setBankConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMonoReady, setIsMonoReady] = useState(false);
 
 
   const steps = [
@@ -111,34 +113,42 @@ const StudentLoanForm = () => {
     }
   };
   // Load Mono Connect script
-  useEffect(() => {
-    const loadMonoScript = () => {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector('script[src*="connect.withmono.com"]')) {
-          resolve();
-          return;
-        }
+  // useEffect(() => {
+  //   const loadMonoScript = () => {
+  //     return new Promise((resolve, reject) => {
+  //       if (document.querySelector('script[src*="connect.withmono.com"]')) {
+  //         resolve();
+  //         return;
+  //       }
 
-        const script = document.createElement('script');
-        script.src = 'https://connect.withmono.com/connect.js';
-        script.type = 'application/javascript';
-        script.onload = resolve;
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    };
+  //       const script = document.createElement('script');
+  //       script.src = 'https://connect.withmono.com/connect.js';
+  //       script.type = 'application/javascript';
+  //       // script.onload = resolve;
+  //       script.onerror = reject;
+  //       script.onload = () => {
+  //         window.MonoConnect.setup({
+  //           onLoad: () => {
+  //             setIsMonoReady(true);
+  //           },
+  //         });
+  //       };
+  //       document.head.appendChild(script);
+  //     });
+  //   };
 
-    loadMonoScript()
-      .then(() => {
-        console.log('Mono Connect script loaded successfully');
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error('Failed to load Mono Connect script:', err);
-        setError('Failed to load Mono Connect');
-        setIsLoading(false);
-      });
-  }, []);
+  //   loadMonoScript()
+  //     .then(() => {
+  //       console.log('Mono Connect script loaded successfully');
+  //       setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.error('Failed to load Mono Connect script:', err);
+  //       setError('Failed to load Mono Connect');
+  //       setIsLoading(false);
+  //     });
+
+  // }, []);
 
 
   const calculateMonthlyPayment = () => {
